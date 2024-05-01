@@ -32,5 +32,7 @@
         <button>삭제</button>
     </form>
 </div>
+
+<a href="/modify?id=${board.id}">수정</a>
 </body>
 </html>

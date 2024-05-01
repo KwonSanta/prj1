@@ -1,6 +1,7 @@
 package com.prj1.controller;
 
 import com.prj1.domain.Board;
+import com.prj1.mapper.BoardMapper;
 import com.prj1.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class BoardController {
 
     private final BoardService service;
+    private final BoardMapper boardMapper;
 
     @GetMapping("/add")
     public String add() {
@@ -62,5 +64,22 @@ public class BoardController {
 
         service.remove(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/modify")
+    public String modify(Integer id, Model model) {
+
+        // 조회, 모델에 넣고
+        model.addAttribute("board", service.get(id));
+        // view 로 포워드
+        return "board/modify";
+    }
+    @PostMapping("/modify")
+    public String modifyPost(Board board,
+                             RedirectAttributes rttr) {
+
+        service.modify(board);
+        rttr.addAttribute("id", board.getId());
+        return "redirect:/board";
     }
 }
