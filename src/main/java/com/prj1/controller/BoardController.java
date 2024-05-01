@@ -56,4 +56,11 @@ public class BoardController {
         // view 로 포워딩
         return "board/home";
     }
+
+    @PostMapping("/delete")
+    public String delete(Integer id) {
+
+        service.remove(id);
+        return "redirect:/";
+    }
 }
