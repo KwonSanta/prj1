@@ -30,11 +30,17 @@ public class MemberController {
         return "redirect:/";
     }
 
-    // 회원 목록 보기 (C"R"UD) : 어드민
+    // 전체 회원 목록 보기 (C"R"UD) : 어드민
     @GetMapping("list")
     public String list(Model model) {
         model.addAttribute("memberList", service.list());
         return "member/list";
     }
-    // 회원 정보 보기 (C"R"UD) : 자기 정보
+
+    // 회원 정보 보기 (C"R"UD) : 1인 정보
+    @GetMapping("")
+    public String info(Integer id, Model model) {
+        model.addAttribute("member", service.get(id));
+        return "member/info";
+    }
 }
