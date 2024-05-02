@@ -19,15 +19,20 @@
             <form action="/member/signup" method="post" onsubmit="return checkValues()">
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">이메일</label>
-                    <input name="email" id="inputEmail" type="email" class="form-control" required>
+                    <div class="input-group">
+                        <input name="email" id="inputEmail" type="email" class="form-control" required>
+                        <button onclick="emailCheck();" type="button" id="buttonEmailCheck" class="btn btn-outline-secondary">중복 확인</button>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">패스워드</label>
-                    <input oninput="passwordCheck()" name="password" id="inputPassword" type="password" class="form-control" required>
+                    <input oninput="passwordCheck()" name="password" id="inputPassword" type="password"
+                           class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputPasswordCheck" class="form-label">패스워드 확인</label>
-                    <input oninput="passwordCheck()" id="inputPasswordCheck" type="password" class="form-control" required>
+                    <input oninput="passwordCheck()" id="inputPasswordCheck" type="password" class="form-control"
+                           required>
                     <div class="form-text" id="passwordMessage"></div>
                 </div>
                 <div class="mb-3">
@@ -43,6 +48,19 @@
 </div>
 
 <script>
+    // email 중복 확인 함수
+    async function emailCheck() {
+        const emailValue = document.querySelector("#inputEmail").value;
+        const url = "/member/email?email=" + emailValue;
+
+        // ajax 요청
+        const response = await fetch(encodeURI(url)); // 이메일은 @가 있으므로 encode 를 진행
+
+        // 응답 처리
+        // console.log(response.text());
+        alert(await response.text());
+    }
+
     function passwordCheck() {
         const password = document.querySelector("#inputPassword").value;
         const passwordCheck = document.querySelector("#inputPasswordCheck").value;
@@ -53,6 +71,7 @@
             document.querySelector("#passwordMessage").textContent = "사용가능 합니다.";
         }
     }
+
     function checkValues() {
         const password = document.getElementById("inputPassword").value;
         const passwordCheck = document.getElementById("inputPasswordCheck").value;

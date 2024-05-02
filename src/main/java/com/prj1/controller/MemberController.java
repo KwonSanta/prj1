@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -67,5 +68,18 @@ public class MemberController {
         service.modify(member);
         rttr.addAttribute("id", member.getId());
         return "redirect:/member";
+    }
+
+    @GetMapping("email")
+    // 응답한 결과를 jsp 로 보지 않고
+    // 결과 그 자체로 response 를 보냄
+    @ResponseBody
+    public String emailCheck(String email) {
+//        System.out.println("email = " + email);
+        String message = service.emailCheck(email);
+        // 받은 message 는 Model 에 넣으면 안됨!!
+        // 전체 페이지가 아닌 일부 페이지만 업데이트 하므로
+        // view 로 넘기는 model 에 넣으면 안됨
+        return message;
     }
 }
