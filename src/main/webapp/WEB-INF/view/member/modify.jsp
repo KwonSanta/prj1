@@ -16,15 +16,20 @@
     <div class="col-6">
 
       <h3 class="mb-4">회원 정보 수정</h3>
-      <form action="/member/modify" method="post" onsubmit="return confirm('저장하시겠습니까?')">
+      <form action="/member/modify" method="post" onsubmit="return confirm('저장하시겠습니까?'),checkValues()">
         <input type="hidden" name="id" value="${member.id}">
         <div class="mb-3">
           <label for="inputEmail" class="form-label">이메일</label>
           <input id="inputEmail" type="email" value="${member.email}" class="form-control-plaintext" readonly="">
         </div>
         <div class="mb-3">
-          <label for="inputPassword" class="form-label">암호</label>
-          <input id="inputPassword" type="password" class="form-control" name="password" value="${member.password}">
+          <label for="inputPassword" class="form-label">패스워드</label>
+          <input oninput="passwordCheck()" name="password" id="inputPassword" type="password" class="form-control" required value="${member.password}">
+        </div>
+        <div class="mb-3">
+          <label for="inputPasswordCheck" class="form-label">패스워드 확인</label>
+          <input oninput="passwordCheck()" id="inputPasswordCheck" type="password" class="form-control" required value="${member.password}">
+          <div class="form-text" id="passwordMessage"></div>
         </div>
         <div class="mb-3">
           <label for="inputNickName" class="form-label">별명</label>
@@ -37,6 +42,29 @@
     </div>
   </div>
 </div>
+
+<script>
+  function passwordCheck() {
+    const password = document.querySelector("#inputPassword").value;
+    const passwordCheck = document.querySelector("#inputPasswordCheck").value;
+    if (password != "" && password == passwordCheck) {
+      document.querySelector("#passwordMessage").textContent = "사용가능합니다.";
+    } else {
+      document.querySelector("#passwordMessage").textContent = "암호가 다릅니다..";
+    }
+  }
+  function checkValues() {
+    const password = document.getElementById("inputPassword").value;
+    const passwordCheck = document.getElementById("inputPasswordCheck").value;
+
+    if (password != "" && password == passwordCheck) {
+      return true;
+    } else {
+      alert("패스워드가 일치하지 않습니다.");
+      return false;
+    }
+  }
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
         integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
