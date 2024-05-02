@@ -22,3 +22,8 @@ CREATE TABLE member
     password  VARCHAR(200) NOT NULL,
     nick_name VARCHAR(100) NOT NULL UNIQUE
 );
+
+ALTER TABLE member
+ADD COLUMN inserted DATETIME NOT NULL DEFAULT NOW();
+
+SELECT * FROM member;
