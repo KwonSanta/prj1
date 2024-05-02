@@ -44,9 +44,13 @@ public class MemberController {
         return "member/info";
     }
 
+    // 회원 탈퇴 기능
     @PostMapping("remove")
     public String remove(Integer id) {
         service.remove(id);
         return "redirect:/member/signup";
     }
+
+
+
 }
