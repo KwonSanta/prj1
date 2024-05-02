@@ -19,15 +19,15 @@
             <form action="/member/signup" method="post">
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">이메일</label>
-                    <input id="inputEmail" type="email" class="form-control" required>
+                    <input name="email" id="inputEmail" type="email" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">패스워드</label>
-                    <input id="inputPassword" type="password" class="form-control" required>
+                    <input name="password" id="inputPassword" type="password" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputNickname" class="form-label">별명</label>
-                    <input id="inputNickname" type="text" class="form-control" required>
+                    <input name="nickname" id="inputNickname" type="text" class="form-control" required>
                 </div>
                 <div>
                     <button class="btn btn-primary">가입</button>
