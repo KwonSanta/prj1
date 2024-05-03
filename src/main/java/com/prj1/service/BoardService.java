@@ -70,4 +70,19 @@ public class BoardService {
                                         "currentPageNumber", page)
                 );
     }
+
+    public boolean hasAccess(Integer id, Authentication auth) {
+        if (auth == null) {
+            return false;
+        }
+        // 지우려고 하는 글의 id값을 가져와서
+        Board board = mapper.selectById(id);
+
+        Object principal = auth.getPrincipal();
+        if (principal instanceof CustomUser user) { // principle -> user -> member -> member.getId
+            Member member = user.getMember();
+            return board.getMemberId().equals(member.getId());
+        }
+        return false;
+    }
 }

@@ -20,7 +20,8 @@ public interface BoardMapper {
                    b.title,
                    b.content,
                    b.inserted,
-                   m.nick_name writer
+                   m.nick_name writer,
+                   m.id member_id
             FROM board b JOIN member m ON b.member_id = m.id
             WHERE b.id = #{id}
             """)
