@@ -4,6 +4,7 @@ import com.prj1.domain.Board;
 import com.prj1.mapper.BoardMapper;
 import com.prj1.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +26,11 @@ public class BoardController {
 
     @PostMapping("/add")
     public String addPost(Board board,
+                          // auth 는 첫 로그인 시 입력 된 username, password 인증 시 생성된 userDetails 객체가 저장 됨
+                          Authentication auth,
                           RedirectAttributes rttr) {
-        System.out.println("board = " + board);
 
-        service.add(board);
+        service.add(board, auth);
 
         rttr.addAttribute("id", board.getId());
 

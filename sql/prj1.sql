@@ -36,3 +36,16 @@ SELECT title, content, writer
 FROM board;
 SELECT COUNT(*)
 FROM board;
+
+# board 테이블 수정
+# writer 컬럼 : 삭제
+# member_id 컬럼 : 추가 (INT REFERENCE member(id))
+ALTER TABLE board
+    DROP COLUMN writer;
+ALTER TABLE board
+    ADD COLUMN member_id INT REFERENCES member (id);
+UPDATE board
+SET member_id = 7
+WHERE id > 0;
+
+SELECT * FROM board;

@@ -29,14 +29,8 @@
                     <textarea id="textareaContent" class="form-control" name="content" cols="30" rows="10"
                               required></textarea>
                 </div>
-                <div class="mb-3">
-                    <label for="inputWriter" class="form-label">
-                        작성자
-                    </label>
-                    <input id="inputWriter" class="form-control" type="text" name="writer" required>
-                </div>
                 <div>
-                    <button>저장</button>
+                    <button class="btn btn-primary">저장</button>
                 </div>
             </form>
         </div>
