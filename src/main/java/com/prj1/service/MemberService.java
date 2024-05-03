@@ -2,6 +2,7 @@ package com.prj1.service;
 
 import com.prj1.domain.CustomUser;
 import com.prj1.domain.Member;
+import com.prj1.mapper.BoardMapper;
 import com.prj1.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ public class MemberService {
     private final MemberMapper mapper;
     // encoding 주입
     private final BCryptPasswordEncoder encoder;
+    private final BoardMapper boardMapper;
 
     // 회원가입 기능
     public void signup(Member member) {
@@ -40,6 +42,10 @@ public class MemberService {
     }
 
     public void remove(Integer id) {
+        // board 테이블에서 레코드 삭제
+        boardMapper.deleteBoardByMemberId(id);
+
+        // member 테이블에서 레코드 삭제
         mapper.deleteById(id);
     }
 
