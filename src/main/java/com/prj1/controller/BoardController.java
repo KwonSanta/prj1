@@ -49,6 +49,7 @@ public class BoardController {
         return "board/view";
     }
 
+    // paging 기능 추가
     // ?page=xx
     @GetMapping("/")
     public String home(@RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -56,8 +57,7 @@ public class BoardController {
 
         // 게시물 목록 조회(select)
         // 모델에 넣고
-        model.addAttribute("boardList", service.list(page));
-
+        model.addAllAttributes(service.list(page));
         // view(jsp) 로 포워딩
         return "board/home";
     }
