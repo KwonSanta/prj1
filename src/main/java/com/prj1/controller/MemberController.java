@@ -82,4 +82,13 @@ public class MemberController {
         // view 로 넘기는 model 에 넣으면 안됨
         return message;
     }
+
+    // 로그인 기능
+    @GetMapping("login")
+    public String loginForm() {
+
+
+
+        return "member/login";
+    }
 }
