@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,19 +43,32 @@
                 <input id="inputInserted" class="form-control" type="datetime-local" readonly value="${board.inserted}">
             </div>
 
-            <div class="mb-3">
-                <button form="formDelete" class="btn btn-danger">삭제</button>
-                <a href="/modify?id=${board.id}" class="btn btn-secondary">수정</a>
-            </div>
+            <%-- #1. 로그인 된 사용자의 id와
+                 #2. 게시물의 memberId가 같으면 --%>
+            <sec:authorize access="isAuthenticated()"> <%-- #1. --%>
+                <sec:authentication property="principal.member" var="member"/> <%-- 로그인 된 사용자의 ID를 얻어오는 코드 --%>
+                <c:if test="${member.id eq board.memberId}"> <%-- #2. --%>
+                    <div class="mb-3">
+                        <button form="formDelete" class="btn btn-danger">삭제</button>
+                        <a href="/modify?id=${board.id}" class="btn btn-secondary">수정</a>
+                    </div>
+                </c:if>
+            </sec:authorize>
 
         </div>
     </div>
 </div>
-<div style="display: none">
-    <form id="formDelete" action="/delete" method="post" onsubmit="return confirm('삭제 하시겠습니까?')">
-        <input type="hidden" name="id" value="${board.id}">
-    </form>
-</div>
+
+<sec:authorize access="isAuthenticated()"> <%-- #1. --%>
+    <sec:authentication property="principal.member" var="member"/> <%-- 로그인 된 사용자의 ID를 얻어오는 코드 --%>
+    <c:if test="${member.id eq board.memberId}"> <%-- #2. --%>
+        <div style="display: none">
+            <form id="formDelete" action="/delete" method="post" onsubmit="return confirm('삭제 하시겠습니까?')">
+                <input type="hidden" name="id" value="${board.id}">
+            </form>
+        </div>
+    </c:if>
+</sec:authorize>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"

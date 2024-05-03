@@ -83,9 +83,11 @@ public class BoardController {
     }
     @PostMapping("/modify")
     public String modifyPost(Board board,
+                             Authentication auth,
                              RedirectAttributes rttr) {
-
-        service.modify(board);
+        if (service.hasAccess(board.getId(), auth)) {
+            service.modify(board);
+        }
         rttr.addAttribute("id", board.getId());
         return "redirect:/board";
     }
