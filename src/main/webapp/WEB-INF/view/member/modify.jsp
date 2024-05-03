@@ -23,12 +23,15 @@
           <input id="inputEmail" type="email" value="${member.email}" class="form-control-plaintext" readonly="">
         </div>
         <div class="mb-3">
-          <label for="inputPassword" class="form-label">패스워드</label>
-          <input oninput="passwordCheck()" name="password" id="inputPassword" type="password" class="form-control" required value="${member.password}">
+          <label for="inputPassword" class="form-label">암호</label>
+          <input oninput="passwordCheck()" name="password" id="inputPassword" type="password" class="form-control" required value="">
+        </div>
+        <div class="form-text">
+          암호를 입력하지 않으면 기존 암호로 유지됩니다.
         </div>
         <div class="mb-3">
-          <label for="inputPasswordCheck" class="form-label">패스워드 확인</label>
-          <input oninput="passwordCheck()" id="inputPasswordCheck" type="password" class="form-control" required value="${member.password}">
+          <label for="inputPasswordCheck" class="form-label">암호 확인</label>
+          <input oninput="passwordCheck()" id="inputPasswordCheck" type="password" class="form-control" required value="">
           <div class="form-text" id="passwordMessage"></div>
         </div>
         <div class="mb-3">

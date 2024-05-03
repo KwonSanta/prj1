@@ -50,7 +50,14 @@ public class MemberService {
     }
 
     public void modify(Member member) {
-        mapper.update(member);
+        if (member.getPassword() != null && member.getPassword().length() > 0) {
+            // 암호를 입력했을 때만 변경
+            member.setPassword(encoder.encode(member.getPassword()));
+        } else {
+            // 그렇지 않으면 기존 암호 유지
+            Member old = mapper.selectById(member.getId());
+            member.setPassword(old.getPassword());
+        }
     }
 
     public String emailCheck(String email) {
