@@ -55,7 +55,7 @@ public class MemberController {
         if (service.hasAccess(id, auth)) {
             service.remove(id);
         }
-        return "redirect:/member/signup";
+        return "redirect:/logout";
     }
 
     // 회원 정보 수정
@@ -67,8 +67,11 @@ public class MemberController {
 
     @PostMapping("modify")
     public String modify(Member member,
+                         Authentication auth,
                          RedirectAttributes rttr) {
-        service.modify(member);
+        if (service.hasAccess(member.getId(), auth)) {
+            service.modify(member);
+        }
         rttr.addAttribute("id", member.getId());
         return "redirect:/member";
     }
