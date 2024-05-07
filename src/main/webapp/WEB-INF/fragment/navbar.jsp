@@ -22,11 +22,13 @@
                             글쓰기
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/member/list" class="nav-link">
-                            회원목록
-                        </a>
-                    </li>
+                    <sec:authorize access="hasAuthority('admin')">
+                        <li class="nav-item">
+                            <a href="/member/list" class="nav-link">
+                                회원목록
+                            </a>
+                        </li>
+                    </sec:authorize>
                 </sec:authorize>
                 <sec:authorize access="not isAuthenticated()">
                     <li class="nav-item">

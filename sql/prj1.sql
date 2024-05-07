@@ -24,14 +24,15 @@ CREATE TABLE member
 );
 
 ALTER TABLE member
-ADD COLUMN inserted DATETIME NOT NULL DEFAULT NOW();
+    ADD COLUMN inserted DATETIME NOT NULL DEFAULT NOW();
 
-SELECT * FROM member;
+SELECT *
+FROM member;
 
 # 페이징용.. ( 게시물 복사해서 갯수 늘리기)
 USE prj1;
 INSERT INTO board
-(title, content, writer)
+    (title, content, writer)
 SELECT title, content, writer
 FROM board;
 SELECT COUNT(*)
@@ -48,4 +49,24 @@ UPDATE board
 SET member_id = 7
 WHERE id > 0;
 
-SELECT * FROM board;
+SELECT *
+FROM board;
+DESC member;
+SELECT *
+FROM member;
+
+CREATE TABLE authority
+(
+    id INT AUTO_INCREMENT PRIMARY KEY ,
+    member_id INT         NOT NULL REFERENCES member (id),
+    name      VARCHAR(20) NOT NULL
+);
+
+INSERT INTO authority
+    (member_id, name)
+VALUES (13, 'admin');
+
+SELECT *
+FROM authority;
+
+SELECT * FROM member m LEFT JOIN authority a ON m.id = a.member_id;
