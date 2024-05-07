@@ -51,7 +51,8 @@ public class MemberController {
     // Authentication 객체를 받아서 hasAccess 로 확인
     // 권한이 없을 시 홈으로 redirect
     public String info(Integer id, Authentication authentication, Model model) {
-        if (service.hasAccess(id, authentication)) {
+        if (service.hasAccess(id, authentication)
+            || service.isAdmin(authentication)) {
             model.addAttribute("member", service.get(id));
             return "member/info";
         }
